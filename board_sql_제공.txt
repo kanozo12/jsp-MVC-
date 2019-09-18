@@ -1,0 +1,47 @@
+﻿-- 시퀀스 : 테이블 내 유일한 수를 자동으로 증가시키는 역할
+--화면에서 주어지는게 아닌 테이블(DB) 내에서 알아서 자동으로 만들어진다.
+--순서는 DB로 데이터가 들어온 후 시퀀스가 만들어진다
+--시퀀스는 고유 넘버링이므로 프라이머리 키가 될 수 있다. 
+/* 최종 글 번호를 저장하기 위한 장치
+  - 설명
+    + 순차적으로 자동증가 하는 값을 생성하는 오라클 객체
+    + 구문
+      CREATE SEQUENCE sequence_name
+      [START WITH n]//처음 설정할 수(n부터 시작)
+      [INCREMENT BY n]//증가값
+      [MAXVALUE n | NOMAXVALUE]//최댓값
+      [MINVALUE n | NOMINVALUE]//최솟값
+      [CYCLE | NOCYCLE] // 순환(최댓값까지 도달 시 다시 최솟값으로 돌아오는 것)
+
+      DROP SEQUENCE sequence name
+
+      nocache는 해주는 것이 좋다.
+
+      서블릿이 하는 일중 가장 중요한 일은 비즈니스 로직 호출이다.
+
+      -오늘 한 게시판 mvc패턴으로 전체적인 구상 만들어보기-
+*/
+
+===============================================================
+create table board(
+		no number primary key,
+		title varchar2(50) not null,
+		writer varchar2(30) not null,
+		password varchar2(30) not null,
+		content varchar2(3000) not null,
+		hits number default 0,
+		time_posted date not null
+);
+
+create sequence board_seq
+start with 1
+increment by 1
+nocache;
+
+==============================================================
+
+
+/*
+C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
+jre폴더와 jdk폴더에 복사시키기
+*/
